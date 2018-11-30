@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>MediaElement.js 3.0 - audio/video unification library</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='mediaelementplayer.css')}}">
+
+</head>
+<body>
+<div class="container" style="font-family: "Oswald";">
+
+      <div class="col-sm-4">
+        <form action="" method="GET">
+
+            <input class="btn" value="SYNC" type="button" id="clickMe" style="display:none;" onclick="syncSong();"/>
+                <input class="btn" value="SYNC" type="button" id="clickMe2" onclick="getSongName();"/>
+                <input  class="btn" value="View Devices" TYPE="button" id="clickMe3" />
+
+
+            <br>
+            <span style="display: none;">
+          <div class="clearfix" style="margin-top: 5px;"></div>
+          <input id="songName" type="text" class="username form-control" placeholder="User Name">
+          <div style="padding-top: 5px;"></div>
+          <input id="songDuration" type="text" class="message form-control" placeholder="Messages">
+          <div style="padding-top: 5px;"></div>
+          <button id="songSubmit" type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-send"></span> Send</button>
+            </span>
+        </form>
+      </div>
+    </div>
+    <!-- START AUDIO PLAYER-->
+    <div id="container">
+        <section>
+        <h1>Distributed Music Player</h1>
+            <h2>A P2P Based Music Player, Play music in different rooms</h2>
+        </section>
+        <!-- HIDE SECTION -->
+        <section style="display: none;!important">
+            <h3>Global Options</h3>
+            <form action="#" method="get">
+                <label>Language <select name="lang">
+                    <option value="ca">Català / Catalan (ca)</option>
+                    <option value="cs">Čeština / Czech (cs)</option>
+                    <option value="de">Deutsch / German (de)</option>
+                    <option value="en" selected>English (en)</option>
+                    <option value="es">Español / Spanish; Castilian (es)</option>
+                    <option value="fa">فارسی / Persian (fa)</option>
+                    <option value="fr">Français / French (fr)</option>
+                    <option value="hr">Hrvatski / Croatian (hr)</option>
+                    <option value="hu">Magyar / Hungarian (hu)</option>
+                    <option value="it">Italiano / Italian (it)</option>
+                    <option value="ja">日本語 / Japanese (ja)</option>
+                    <option value="ko">한국어 / Korean (ko)</option>
+                    <option value="ms">Melayu / Malay (ms)</option>
+                    <option value="nl">Nederlands / Dutch (nl)</option>
+                    <option value="pl">Polski / Polish (pl)</option>
+                    <option value="pt">Português / Portuguese (pt)</option>
+                    <option value="ro">Română / Romanian (ro)</option>
+                    <option value="ru">Русский / Russian (ru)</option>
+                    <option value="sk">Slovensko / Slovak (sk)</option>
+                    <option value="sv">Svenska / Swedish (sv)</option>
+                    <option value="uk">Українська / Ukrainian (uk)</option>
+                    <option value="zh">繁体中文 / Traditional Chinese (zh-TW)</option>
+                    <option value="zh-CN">简体中文 / Simplified Chinese (zh-CN)</option>
+                </select>
+                </label>
+                <label>Stretching (Video Only)<select name="stretching">
+                    <option value="auto" selected>Auto (default)</option>
+                    <option value="responsive">Responsive</option>
+                    <option value="fill" selected>Fill</option>
+                    <option value="none" selected>None (original dimensions)</option>
+                </select>
+                </label>
+            </form>
+        </section>
+        <div class="players" id="player2-container">
+
+            <div class="media-wrapper">
+                <!-- AUDIO PLAYER MUSIC START TAG -->
+
+                <audio autoplay=true id="player2" preload="none" controls="controls" style="max-width:100%;">
+                    <source src="http://jonasalbaira.com/music/music.mp3" type="audio/mp3">
+                    <source src="http://jonasalbaira.com/music/music.mp3" type="audio/mp3">
+                    <source src="http://jonasalbaira.com/music/music.mp3" type="audio/mp3">
+                    <source src="http://jonasalbaira.com/music/music.mp3" type="audio/mp3">
+                </audio>
+                <ul style="list-style: none;">
+                        <li id="user1"> </li>
+                </ul>
+
+            </div>
+            <br>
+            <div>
+                <label>Songs <select name="sources">
+                    <option value="http://jonasalbaira.com/music/music.mp3">SELECT ONE</option>
+                    <option value="http://jonasalbaira.com/music/Post Malone - Better Now.mp3">Post Malone - Better Now</option>
+                    <option value="http://jonasalbaira.com/music/6IX9INE - FEFE (feat. Nicki Minaj & Murda Beatz).mp3">6IX9INE - FEFE (feat. Nicki Minaj & Murda Beatz)</option>
+                    <option value="http://jonasalbaira.com/music/Cardi B - Money.mp3">Cardi B - Money</option>
+                    <option value="http://jonasalbaira.com/music/Drake - God's Plan.mp3">Drake - God's Plan</option>
+                    <option value="http://jonasalbaira.com/music/Travis Scott - SICKO MODE.mp3">Travis Scott - SICKO MODE</option>
+                    <option value="Kiss and Make up" src="http://jonasalbaira.com/music/music.mp3">BLACKPINK - Kiss and Make Up</option>
+                </select>
+                </label>
+            </div>
+            <br>
+            <div class="player-info">
+                <h4>Player information</h4>
+                <div id="player2-rendername">
+                    <p><strong>Source</strong>: <span class="src"><a href="http://jonasalbaira.com/music/music.mp3" target="_blank">http://www.largesound.com/ashborytour/sound/AshboryBYU.mp3</a></span></p>
+                    <p class="error"></p>
+                </div>
+            </div>
+
+        </div>
+        <div id="syncName" class="message_holder"></div>
+            <div id="syncDuration" class="message_holder2"></div>
+    </div>
+    <!-- END AUDIO PLAYER -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+    <script>
+        var socket = io.connect( 'http://' + document.domain + ':' + location.port )
+
+
+        $('#clickMe3').on('click',function () {
+
+            var htmlElement2 = document.querySelector("audio");
+            socket.emit('username', htmlElement2.getSrc());
+
+        })
+        /*
+        $(window).on('load',function () {
+
+            socket.emit('username', htmlElement.getSrc());
+
+        })*/
+
+
+        socket.on('display', function(info){
+
+            var newArray=[];
+
+            for (var i = 0; i < info.length; i++) {
+                newArray.push('<span>'+ i + " : " + info[i] + '</span><br>');
+            }
+            $("li#user1").html(newArray.join(""));
+
+            //$( 'li#user1' ).append( '<div class="msg_bbl"><b style="color: #000">' + info + '</div>' )
+
+        })
+
+        // broadcast a message
+        socket.on( 'connect', function() {
+        socket.emit( 'my event', {
+          data: 'User Connected'
+        } )
+        var form = $( 'form' ).on( 'submit', function( e ) {
+          e.preventDefault()
+          let user_name = $( 'input.username' ).val()
+          let user_input = $( 'input.message' ).val()
+          socket.emit( 'my event', {
+            user_name : user_name,
+            message : user_input
+          } )
+          // empty the input field
+          $( 'input.message' ).val( '' ).focus()
+        } )
+      } )
+
+
+      // capture message
+      socket.on( 'my response', function( msg ) {
+
+        console.log( msg )
+        if( typeof msg.user_name !== 'undefined' ) {
+          $( 'h1' ).remove()
+
+          $( 'div.message_holder' ).append( '<div class="msg_bbl"><b style="color: #000">' + msg.user_name+ '</div>' )
+          $( 'div.message_holder2' ).append( '<div class="msg_bbl"><b style="color: #000">'+ msg.message+'</div>' )
+            syncSong();
+        }
+      } )
+
+        var htmlElement = document.querySelector("audio");
+        function getSongName() {
+            //var tmp= document.getElementById('songName');
+            var name = htmlElement.getSrc();
+            var duration = htmlElement.getCurrentTime();
+            document.getElementById("songName").value = name;
+            document.getElementById("songDuration").value = duration;
+
+            $("#songSubmit").click()
+            //tmp.textContent = name;
+
+            //syncSong();
+        }
+        
+        function syncSong() {
+
+            var node = document.getElementById('syncName')
+            var node2 = document.getElementById('syncDuration')
+
+            htmlContent = node.innerHTML,
+            textContent = node.textContent;
+
+            htmlContent2 = node2.innerHTML,
+            textContent2 = node2.textContent;
+
+            htmlElement.setSrc(textContent);
+            htmlElement.setCurrentTime(textContent2);
+
+            htmlElement.play();
+            $("#syncDuration").html("");
+            $("#syncName").html("");
+        }
+
+        //sync all clients to server
+        function synchronize() {
+            htmlElement.getCurrentTime();
+
+            socket.on( 'connect', function() {
+            socket.emit( 'my event', {
+              data: 'User Connected'
+            } )
+            var form = $( 'form' ).on( 'submit', function( e ) {
+              e.preventDefault()
+              let user_name = $( 'input.username' ).val()
+              let user_input = $( 'input.message' ).val()
+              socket.emit( 'my event', {
+                user_name : user_name,
+                message : user_input
+              } )
+              // empty the input field
+              $( 'input.message' ).val( '' ).focus()
+            } )
+          } )
+
+        }
+
+        //////////////////////
+    </script>
+    <script>
+        function testMe() {
+            alert("HELLO");
+        }
+    </script>
+    <script>
+$(function(){
+    $('audio,video').mediaelementplayer({
+        loop: true,
+        shuffle: true,
+        playlist: true,
+        audioHeight: 30,
+        playlistposition: 'bottom',
+        features: ['playlistfeature', 'prevtrack', 'playpause', 'nexttrack', 'loop', 'shuffle', 'playlist', 'current', 'progress', 'duration', 'volume'],
+    });
+});
+</script>
+    <script rel="script" type="text/javascript" src="{{ url_for('static', filename='mediaelement-and-player.js')}}"></script>
+    <script rel="script" type="text/javascript" src="{{ url_for('static', filename='renderers/test.js')}}"></script>
+    <script rel="script" type="text/javascript" src="{{ url_for('static', filename='renderers/dailymotion.js')}}"></script>
+    <script rel="script" type="text/javascript" src="{{ url_for('static', filename='renderers/facebook.js')}}"></script>
+    <script rel="script" type="text/javascript" src="{{ url_for('static', filename='renderers/soundcloud.js')}}"></script>
+    <script rel="script" type="text/javascript" src="{{ url_for('static', filename='renderers/twitch.js')}}"></script>
+    <script rel="script" type="text/javascript" src="{{ url_for('static', filename='renderers/vimeo.js')}}"></script>
+    <script rel="script" type="text/javascript" src="{{ url_for('static', filename='lang/cs.js')}}"></script>
+    <script rel="script" type="text/javascript" src="{{ url_for('static', filename='lang/de.js')}}"></script>
+    <script rel="script" type="text/javascript" src="{{ url_for('static', filename='lang/es.js')}}"></script>
+    <script rel="script" type="text/javascript" src="{{ url_for('static', filename='lang/fa.js')}}"></script>
+    <script rel="script" type="text/javascript" src="{{ url_for('static', filename='lang/fr.js')}}"></script>
+    <script rel="script" type="text/javascript" src="{{ url_for('static', filename='lang/hr.js')}}"></script>
+    <script rel="script" type="text/javascript" src="{{ url_for('static', filename='lang/hu.js')}}"></script>
+    <script rel="script" type="text/javascript" src="{{ url_for('static', filename='lang/it.js')}}"></script>
+    <script rel="script" type="text/javascript" src="{{ url_for('static', filename='lang/ja.js')}}"></script>
+    <script rel="script" type="text/javascript" src="{{ url_for('static', filename='lang/ko.js')}}"></script>
+    <script rel="script" type="text/javascript" src="{{ url_for('static', filename='lang/ms.js')}}"></script>
+    <script rel="script" type="text/javascript" src="{{ url_for('static', filename='lang/nl.js')}}"></script>
+    <script rel="script" type="text/javascript" src="{{ url_for('static', filename='lang/pl.js')}}"></script>
+    <script rel="script" type="text/javascript" src="{{ url_for('static', filename='lang/pt.js')}}"></script>
+    <script rel="script" type="text/javascript" src="{{ url_for('static', filename='lang/ro.js')}}"></script>
+    <script rel="script" type="text/javascript" src="{{ url_for('static', filename='lang/ru.js')}}"></script>
+    <script rel="script" type="text/javascript" src="{{ url_for('static', filename='lang/sk.js')}}"></script>
+    <script rel="script" type="text/javascript" src="{{ url_for('static', filename='lang/sv.js')}}"></script>
+    <script rel="script" type="text/javascript" src="{{ url_for('static', filename='lang/uk.js')}}"></script>
+    <script rel="script" type="text/javascript" src="{{ url_for('static', filename='lang/zh-cn.js')}}"></script>
+    <script rel="script" type="text/javascript" src="{{ url_for('static', filename='lang/zh.js')}}"></script>
+    <script rel="script" type="text/javascript" src="{{ url_for('static', filename='demo.js')}}"></script>
+    <script rel="script" type="text/javascript" src="{{ url_for('static', filename='mep-feature-playlist.js')}}"></script>
+
+</body>
+</html>
