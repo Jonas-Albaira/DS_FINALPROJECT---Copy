@@ -36,6 +36,6 @@ On the main directory, open Command Line and run:
 	<code>python main.py</code>
 <br>
 <br>
-The app is ran by default on Port 500 of Localhost. Open a <em>browser</em>, then type in address:
+The app is ran by default on Port 5000 of Localhost. Open a <em>browser</em>, then type in address:
 <br>
 	<code>http://localhost:5000/</code>
