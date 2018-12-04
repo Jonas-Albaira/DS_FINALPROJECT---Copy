@@ -1,12 +1,12 @@
 from flask import Flask, render_template, request
 from flask_socketio import SocketIO, emit
 import os
-
+#initialize Flask Application
 app = Flask(__name__)
 
 app.config[ 'SECRET_KEY' ] = 'jsbcfsbfjefebw237u3gdbdc'
 socketio = SocketIO( app )
-
+#create global variables
 users=[" "]*30
 count = 0
 
@@ -20,6 +20,7 @@ def index():
 def messageRecived():
   print( 'message was received!!!' )
 
+#function for Multicasting Messages
 @socketio.on( 'my event' )
 def handle_my_custom_event( json ):
   print( 'recived my event: ' + str( json ) )
@@ -32,7 +33,7 @@ def receive_username(info):
     print(users)
     count+=1
     socketio.emit('display', users)
-
+#make the app discoverable in the network
 if __name__ == '__main__':
   socketio.run( app, host='0.0.0.0', debug=False )
 
