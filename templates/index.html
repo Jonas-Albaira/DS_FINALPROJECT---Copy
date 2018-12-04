@@ -17,23 +17,19 @@
 </head>
 <body>
 <div class="container" style="font-family: "Oswald";">
-
       <div class="col-sm-4">
         <form action="" method="GET">
-
             <input class="btn" value="SYNC" type="button" id="clickMe" style="display:none;" onclick="syncSong();"/>
-                <input class="btn" value="SYNC" type="button" id="clickMe2" onclick="getSongName();"/>
-                <input  class="btn" value="View Devices" TYPE="button" id="clickMe3" />
-
-
+            <input class="btn" value="SYNC" type="button" id="clickMe2" onclick="getSongName();"/>
+            <input  class="btn" value="View Devices" TYPE="button" id="clickMe3" />
             <br>
             <span style="display: none;">
-          <div class="clearfix" style="margin-top: 5px;"></div>
-          <input id="songName" type="text" class="username form-control" placeholder="User Name">
-          <div style="padding-top: 5px;"></div>
-          <input id="songDuration" type="text" class="message form-control" placeholder="Messages">
-          <div style="padding-top: 5px;"></div>
-          <button id="songSubmit" type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-send"></span> Send</button>
+                <div class="clearfix" style="margin-top: 5px;"></div>
+                <input id="songName" type="text" class="username form-control" placeholder="User Name">
+                <div style="padding-top: 5px;"></div>
+                <input id="songDuration" type="text" class="message form-control" placeholder="Messages">
+                <div style="padding-top: 5px;"></div>
+                <button id="songSubmit" type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-send"></span> Send</button>
             </span>
         </form>
       </div>
@@ -129,23 +125,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
     <script>
+        //connect to localhost
         var socket = io.connect( 'http://' + document.domain + ':' + location.port )
 
-
+        //return audio source file 
         $('#clickMe3').on('click',function () {
 
             var htmlElement2 = document.querySelector("audio");
             socket.emit('username', htmlElement2.getSrc());
 
         })
-        /*
-        $(window).on('load',function () {
-
-            socket.emit('username', htmlElement.getSrc());
-
-        })*/
-
-
+        
+        //creates a list of all connected devices
         socket.on('display', function(info){
 
             var newArray=[];
@@ -200,11 +191,10 @@
             document.getElementById("songDuration").value = duration;
 
             $("#songSubmit").click()
-            //tmp.textContent = name;
-
-            //syncSong();
+           
         }
         
+        //multicast Song Name and Song info
         function syncSong() {
 
             var node = document.getElementById('syncName')
@@ -224,14 +214,18 @@
             $("#syncName").html("");
         }
 
-        //sync all clients to server
+
         function synchronize() {
+            //get current play time
             htmlElement.getCurrentTime();
+
 
             socket.on( 'connect', function() {
             socket.emit( 'my event', {
               data: 'User Connected'
             } )
+
+            //multicast the current play time and source link of the song
             var form = $( 'form' ).on( 'submit', function( e ) {
               e.preventDefault()
               let user_name = $( 'input.username' ).val()
@@ -245,13 +239,6 @@
             } )
           } )
 
-        }
-
-        //////////////////////
-    </script>
-    <script>
-        function testMe() {
-            alert("HELLO");
         }
     </script>
     <script>
